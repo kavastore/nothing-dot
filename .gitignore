@@ -1,0 +1,31 @@
+*.iml
+.gradle/
+/local.properties
+/.idea/
+**/.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Kotlin compiler cache
+.kotlin/
+
+# Module build outputs
+**/build/
+
+# Build artifacts
+*.apk
+*.aab
+
+# Keystore / secrets
+*.jks
+*.keystore
+keystore/
+keystore.properties
+
+# GlyphMatrix SDK aar is proprietary (Nothing). It is NOT committed; fetch it
+# manually from github.com/Nothing-Developer-Programme/GlyphMatrix-Developer-Kit
+# releases and place it at matrix/libs/glyph-matrix-sdk-2.0.aar (see README).
+matrix/libs/*.aar

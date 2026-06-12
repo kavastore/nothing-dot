@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dot.</string>
+    <string name="widget_label">РИСУЙ → МАТРИЦА</string>
+    <string name="widget_description">Нарисуй пальцем — покажется на задней матрице 10 секунд</string>
+</resources>

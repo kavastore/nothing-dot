@@ -1,0 +1,51 @@
+[versions]
+agp = "8.13.2"
+kotlin = "2.0.21"
+ksp = "2.0.21-1.0.28"
+coreKtx = "1.15.0"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.9.3"
+composeBom = "2024.12.01"
+navigationCompose = "2.8.5"
+lifecycleViewmodelCompose = "2.8.7"
+room = "2.6.1"
+datastore = "1.1.1"
+coroutines = "1.9.0"
+shizuku = "13.1.5"
+libadb = "3.1.1"
+sunSecurity = "1.1"
+conscrypt = "2.5.3"
+# minSdk 33: required by glyph-matrix-sdk-2.0.aar. targetSdk/compileSdk can be raised to 36.
+minSdk = "33"
+targetSdk = "35"
+compileSdk = "35"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+shizuku-api = { group = "dev.rikka.shizuku", name = "api", version.ref = "shizuku" }
+shizuku-provider = { group = "dev.rikka.shizuku", name = "provider", version.ref = "shizuku" }
+libadb-android = { group = "com.github.MuntashirAkon", name = "libadb-android", version.ref = "libadb" }
+sun-security-android = { group = "com.github.MuntashirAkon", name = "sun-security-android", version.ref = "sunSecurity" }
+conscrypt-android = { group = "org.conscrypt", name = "conscrypt-android", version.ref = "conscrypt" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

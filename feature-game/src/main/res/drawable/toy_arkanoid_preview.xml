@@ -1,0 +1,18 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Bricks -->
+    <path android:fillColor="#FFFFFF" android:pathData="M8,10h7v4h-7z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M17,10h7v4h-7z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M26,10h7v4h-7z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M35,10h5v4h-5z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M12,16h7v4h-7z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M21,16h7v4h-7z" />
+    <path android:fillColor="#FFFFFF" android:pathData="M30,16h7v4h-7z" />
+    <!-- Ball -->
+    <path android:fillColor="#FFFFFF" android:pathData="M23,28h3v3h-3z" />
+    <!-- Paddle -->
+    <path android:fillColor="#FFFFFF" android:pathData="M18,38h12v3h-12z" />
+</vector>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="toy_arkanoid">Dot. Arkanoid</string>
+    <string name="toy_arkanoid_summary">Наклоняй телефон, чтобы двигать платформу. Glyph-кнопка запускает шар и стреляет.</string>
+</resources>

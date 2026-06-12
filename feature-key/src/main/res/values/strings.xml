@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="key_service_label">Dot Essential Key</string>
+    <string name="key_service_description">Перехватывает мульти-тапы Essential Key, чтобы назначать на них действия (фонарик, камера, скриншот, беззвучный режим).</string>
+</resources>
