@@ -1,31 +1,85 @@
 # Dot.
 
-**Русский** · [English](#english)
+Приложение для Nothing Phone: рисование, AOD-тои, Essential Key и игра прямо на **Glyph-матрице**.
+
+**[Русский](#русский)** · **[English](#english)**
+
+---
+
+## Скачать · Download
+
+| | |
+| --- | --- |
+| **Последний APK / Latest APK** | **[v0.1.0 — скачать · download](https://github.com/kavastore/nothing-dot/releases/download/v0.1.0/dot-0.1.0.apk)** (~34 MB) |
+| Все версии / All releases | [github.com/kavastore/nothing-dot/releases](https://github.com/kavastore/nothing-dot/releases) |
+| Исходники / Source | `git clone https://github.com/kavastore/nothing-dot.git` |
+
+> Репозиторий публичный — APK качается без аккаунта GitHub.  
+> The repo is public — no GitHub account needed to download the APK.
 
 ---
 
 ## Русский
 
-Приложение для Nothing Phone, превращающее заднюю **Glyph-матрицу** в холст: пиксельный
-редактор, анимации, AOD-тои, игра и переназначение Essential Key.
+<a id="русский"></a>
 
-- **Устройства:** Nothing Phone (4a) Pro (`DEVICE_25111p`) и Nothing Phone (3) (`DEVICE_23112`, матрица 25×25 + Glyph-кнопка)
-- **Платформа:** Nothing OS 4.1 / Android 16, `minSdk 33`
-- **applicationId / namespace:** `tech.dotlab.dot`
+### Меню
 
-### Возможности
+1. [Скачать APK](#скачать--download)
+2. [Быстрый старт](#быстрый-старт)
+3. [Что умеет](#что-умеет)
+4. [Поддерживаемые устройства](#поддерживаемые-устройства)
+5. [Сборка из исходников](#сборка-из-исходников)
+6. [Архитектура](#архитектура)
+7. [English](#english)
 
-- **Pixel Editor** — рисование по сетке матрицы (перо/ластик/заливка/пипетка), яркость 0–255, трансформы, кадры анимации, LIVE-превью на матрице.
-- **AOD Glyph Toy** — показ рисунка/анимации в Always-on (`PixelArtToyService`).
-- **Картинка → матрица** — импорт фото через Photo Picker, downscale + дизеринг Флойда-Стейнберга.
-- **Essential Key Remapper** — мульти-тапы (DOUBLE/TRIPLE/LONG_PRESS) на действия (фонарик, камера, скриншот, беззвучный режим). Полное освобождение кнопки через Shizuku / встроенный беспроводной ADB / ADB с ПК.
-- **Arkanoid на матрице** — игра на задней матрице: наклон (акселерометр) двигает платформу, Glyph-кнопка запускает шар и стреляет.
+### Быстрый старт
 
-### Стек
+1. Скачайте **[dot-0.1.0.apk](https://github.com/kavastore/nothing-dot/releases/download/v0.1.0/dot-0.1.0.apk)**.
+2. На телефоне разрешите установку из неизвестных источников (для браузера или «Файлов»).
+3. Откройте APK и установите.
+4. При первом запуске — короткий онбординг, затем главный экран с плитками **PLAY / DRAW / KEY / IMG**.
 
-Kotlin 2.0.21 · Jetpack Compose · Room · DataStore · Shizuku-API · libadb-android · Nothing GlyphMatrix SDK 2.0 · AGP 8.13.2 · KSP · Gradle 8.13.
+**На Nothing Phone:** на главном появится **LIVE DEMO** — рисунок сразу уходит на заднюю матрицу. Статус `MATRIX OK` означает, что матрица доступна.
 
-### Архитектура модулей
+### Что умеет
+
+| Модуль | Описание |
+| --- | --- |
+| **DRAW** — Pixel Editor | Перо, ластик, заливка, пипетка; яркость 0–255; трансформы; кадры анимации; LIVE на матрице; виджет быстрого рисунка |
+| **AOD Glyph Toy** | Рисунок или анимация в Always-on Display |
+| **IMG** — Картинка → матрица | Импорт фото, downscale + дизеринг Флойда-Стейнберга; AOD или показ по Essential Key |
+| **KEY** — Essential Key | Двойной/тройной/долгий тап → фонарик, камера, скриншот, беззвучный режим; освобождение кнопки через Shizuku / беспроводной ADB / ADB с ПК |
+| **PLAY** — Arkanoid | Игра на матрице Phone (3): наклон — платформа, Glyph-кнопка — шар и выстрел |
+
+### Поддерживаемые устройства
+
+| Устройство | Матрица | Особенности |
+| --- | --- | --- |
+| Nothing Phone (4a) Pro | 13×13 | LIVE, AOD, KEY, IMG |
+| Nothing Phone (3) | 25×25 | + Glyph-кнопка, Arkanoid |
+
+- **Платформа:** Nothing OS 4+ / Android 16, `minSdk 33`
+- **applicationId:** `tech.dotlab.dot`
+- На эмуляторе или другом Android 33+ редактор работает, матрица — нет (статус `NONE`, это нормально)
+
+### Сборка из исходников
+
+**Требования:** Android Studio, Android SDK 35, JDK 17+.
+
+**Обязательно:** проприетарный [GlyphMatrix SDK](https://github.com/Nothing-Developer-Programme/GlyphMatrix-Developer-Kit) **не в репозитории**. Скачайте AAR и положите в `matrix/libs/glyph-matrix-sdk-2.0.aar` — см. [matrix/libs/README.md](matrix/libs/README.md).
+
+```bash
+git clone https://github.com/kavastore/nothing-dot.git
+cd nothing-dot
+# положите AAR в matrix/libs/
+./gradlew :app:assembleDebug   # или assembleRelease
+./gradlew test
+```
+
+**Стек:** Kotlin 2.0.21 · Jetpack Compose · Room · DataStore · Shizuku · libadb-android · GlyphMatrix SDK 2.0 · AGP 8.13.2 · Gradle 8.13.
+
+### Архитектура
 
 ```mermaid
 graph TD
@@ -37,56 +91,24 @@ graph TD
   app --> device[":device"]
   app --> core[":core"]
   fEditor --> matrix
-  fEditor --> ds
   fKey --> matrix
   fGame --> matrix
   ds --> device
   matrix --> device
-  matrix --> aar["GlyphMatrix SDK aar (вручную)"]
+  matrix --> aar["GlyphMatrix SDK (manual)"]
   device --> core
 ```
 
 | Модуль | Назначение |
 | --- | --- |
-| `:core` | Модели: `LogicalFrame`, `ToyType`, `Gesture`, `UnlockMethod`, `KeyAction`. |
-| `:device` | Профили устройств (`DeviceProfile`, `DeviceRegistry`), `ShapeMask`, определение текущего устройства. |
-| `:matrix` | Рендер `LogicalFrame` на матрицу через GlyphMatrix SDK + база `GlyphToyService`; fallback без железа. |
-| `:designsystem` | Тема Nothing (монохром + красный акцент), `DotMatrixPreview` / `DotMatrixCanvas`. |
-| `:feature-editor` | Pixel Editor: Room-хранилище, движок (`ImageImport`, `PngExport`), AOD-той, UI. |
-| `:feature-key` | Essential Key Remapper: DataStore, `ActionRegistry`, Accessibility-сервис, мастера разблокировки. |
-| `:feature-game` | Arkanoid (чистый Kotlin + JVM-тесты) и `ArkanoidToyService`. |
-| `:app` | Склейка: онбординг, навигация, главный экран, демо на матрице. |
-
-### Требования
-
-- Android Studio с Android SDK **35**
-- JDK 17+ (рекомендуется JBR 21 из Android Studio)
-- Android-устройство/эмулятор с API **33+** (полный функционал матрицы — только на поддерживаемых Nothing Phone)
-
-### Обязательный шаг: GlyphMatrix SDK
-
-Проприетарный SDK от Nothing **не входит в репозиторий**. Перед сборкой скачайте AAR и положите его в `matrix/libs/`:
-
-1. Откройте релизы [GlyphMatrix-Developer-Kit](https://github.com/Nothing-Developer-Programme/GlyphMatrix-Developer-Kit).
-2. Скачайте последнюю версию AAR (для Phone (4a) Pro нужна версия с константой `DEVICE_25111p`).
-3. Поместите его как `matrix/libs/glyph-matrix-sdk-2.0.aar`.
-
-Подробности — в [matrix/libs/README.md](matrix/libs/README.md). Любой `*.aar` в этой папке подхватывается автоматически; держите только один файл.
-
-> Без AAR проект не соберётся. `local.properties` (путь к Android SDK) Android Studio создаёт сам.
-
-### Сборка и запуск
-
-```bash
-./gradlew :app:assembleDebug
-./gradlew test
-```
-
-Или откройте папку в Android Studio — Gradle sync пройдёт автоматически, затем запустите конфигурацию `app`.
-
-**Эмулятор / любой Android (API 33+):** интро → главный → DRAW → рисование, кадры, сохранение. Матрица в статусе `NONE` (нормально без железа).
-
-**Nothing Phone (4a) Pro / (3):** на главном — блок `LIVE DEMO`, статус `MATRIX OK`; редактор в режиме LIVE; AOD-той, картинка → матрица, Essential Key.
+| `:core` | `LogicalFrame`, `ToyType`, `Gesture`, `KeyAction` |
+| `:device` | Профили устройств, `ShapeMask`, детект модели |
+| `:matrix` | Рендер на матрицу через GlyphMatrix SDK |
+| `:designsystem` | Тема Nothing, `DotMatrixPreview` / `DotMatrixCanvas` |
+| `:feature-editor` | Pixel Editor, Room, AOD-той |
+| `:feature-key` | Essential Key Remapper |
+| `:feature-game` | Arkanoid + `ArkanoidToyService` |
+| `:app` | Онбординг, навигация, главный экран |
 
 ---
 
@@ -94,84 +116,64 @@ graph TD
 
 <a id="english"></a>
 
-Android app for Nothing Phone that turns the rear **Glyph Matrix** into a canvas: pixel editor,
-animations, AOD toys, a game, and Essential Key remapping.
+### Contents
 
-- **Devices:** Nothing Phone (4a) Pro (`DEVICE_25111p`) and Nothing Phone (3) (`DEVICE_23112`, 25×25 matrix + Glyph Button)
-- **Platform:** Nothing OS 4.1 / Android 16, `minSdk 33`
-- **applicationId / namespace:** `tech.dotlab.dot`
+1. [Download APK](#скачать--download)
+2. [Quick start](#quick-start)
+3. [Features](#features)
+4. [Supported devices](#supported-devices)
+5. [Build from source](#build-from-source)
+6. [Architecture](#architecture-en)
+7. [Русский](#русский)
+
+### Quick start
+
+1. Download **[dot-0.1.0.apk](https://github.com/kavastore/nothing-dot/releases/download/v0.1.0/dot-0.1.0.apk)**.
+2. Allow installs from unknown sources on your phone.
+3. Open the APK and install.
+4. First launch shows a short onboarding, then the home screen with **PLAY / DRAW / KEY / IMG** tiles.
+
+**On a Nothing Phone:** the home screen **LIVE DEMO** mirrors your drawing to the rear matrix. Status `MATRIX OK` means the matrix is available.
 
 ### Features
 
-- **Pixel Editor** — draw on the matrix grid (pen/eraser/fill/eyedropper), brightness 0–255, transforms, animation frames, LIVE preview on the physical matrix.
-- **AOD Glyph Toy** — show art/animation in Always-on (`PixelArtToyService`).
-- **Image → matrix** — import photos via Photo Picker, downscale + Floyd–Steinberg dithering.
-- **Essential Key Remapper** — multi-tap gestures (DOUBLE/TRIPLE/LONG_PRESS) mapped to actions (torch, camera, screenshot, silent mode). Full key unlock via Shizuku / in-app wireless ADB / desktop ADB.
-- **Matrix Arkanoid** — game rendered on the rear matrix: tilt (accelerometer) moves the paddle, Glyph Button launches the ball and fires.
-
-### Stack
-
-Kotlin 2.0.21 · Jetpack Compose · Room · DataStore · Shizuku-API · libadb-android · Nothing GlyphMatrix SDK 2.0 · AGP 8.13.2 · KSP · Gradle 8.13.
-
-### Module architecture
-
-```mermaid
-graph TD
-  app[":app"] --> fEditor[":feature-editor"]
-  app --> fKey[":feature-key"]
-  app --> fGame[":feature-game"]
-  app --> ds[":designsystem"]
-  app --> matrix[":matrix"]
-  app --> device[":device"]
-  app --> core[":core"]
-  fEditor --> matrix
-  fEditor --> ds
-  fKey --> matrix
-  fGame --> matrix
-  ds --> device
-  matrix --> device
-  matrix --> aar["GlyphMatrix SDK aar (manual)"]
-  device --> core
-```
-
-| Module | Purpose |
+| Module | Description |
 | --- | --- |
-| `:core` | Domain models: `LogicalFrame`, `ToyType`, `Gesture`, `UnlockMethod`, `KeyAction`. |
-| `:device` | Device profiles (`DeviceProfile`, `DeviceRegistry`), `ShapeMask`, current device resolution. |
-| `:matrix` | Renders `LogicalFrame` to the matrix via GlyphMatrix SDK + `GlyphToyService` base; no-hardware fallback. |
-| `:designsystem` | Nothing theme (monochrome + red accent), `DotMatrixPreview` / `DotMatrixCanvas`. |
-| `:feature-editor` | Pixel Editor: Room storage, engine (`ImageImport`, `PngExport`), AOD toy, UI. |
-| `:feature-key` | Essential Key Remapper: DataStore, `ActionRegistry`, Accessibility service, unlock wizards. |
-| `:feature-game` | Arkanoid (pure Kotlin + JVM tests) and `ArkanoidToyService`. |
-| `:app` | Shell: onboarding, navigation, home screen, matrix demo. |
+| **DRAW** — Pixel Editor | Pen, eraser, fill, eyedropper; brightness 0–255; transforms; animation frames; LIVE matrix preview; quick-draw widget |
+| **AOD Glyph Toy** | Art or animation in Always-on Display |
+| **IMG** — Image → matrix | Photo import, downscale + Floyd–Steinberg dithering; AOD or Essential Key trigger |
+| **KEY** — Essential Key | Double/triple/long tap → torch, camera, screenshot, silent mode; full unlock via Shizuku / wireless ADB / desktop ADB |
+| **PLAY** — Arkanoid | Matrix game on Phone (3): tilt for paddle, Glyph Button for ball and fire |
 
-### Requirements
+### Supported devices
 
-- Android Studio with Android SDK **35**
-- JDK 17+ (JBR 21 from Android Studio recommended)
-- Android device/emulator with API **33+** (full matrix features require a supported Nothing Phone)
+| Device | Matrix | Notes |
+| --- | --- | --- |
+| Nothing Phone (4a) Pro | 13×13 | LIVE, AOD, KEY, IMG |
+| Nothing Phone (3) | 25×25 | + Glyph Button, Arkanoid |
 
-### Required: GlyphMatrix SDK
+- **Platform:** Nothing OS 4+ / Android 16, `minSdk 33`
+- **applicationId:** `tech.dotlab.dot`
+- On emulator or non-Nothing Android 33+, the editor works; matrix stays unavailable (`NONE`)
 
-Nothing's proprietary SDK is **not included** in this repository. Before building, download the AAR and place it in `matrix/libs/`:
+### Build from source
 
-1. Open [GlyphMatrix-Developer-Kit releases](https://github.com/Nothing-Developer-Programme/GlyphMatrix-Developer-Kit).
-2. Download the latest AAR (Phone (4a) Pro requires a build with the `DEVICE_25111p` constant).
-3. Save it as `matrix/libs/glyph-matrix-sdk-2.0.aar`.
+**Requirements:** Android Studio, Android SDK 35, JDK 17+.
 
-See [matrix/libs/README.md](matrix/libs/README.md) for details. Any `*.aar` in that folder is picked up automatically; keep only one file.
-
-> The project will not build without the AAR. Android Studio creates `local.properties` (SDK path) automatically.
-
-### Build and run
+**Required:** the proprietary [GlyphMatrix SDK](https://github.com/Nothing-Developer-Programme/GlyphMatrix-Developer-Kit) is **not in this repo**. Download the AAR to `matrix/libs/glyph-matrix-sdk-2.0.aar` — see [matrix/libs/README.md](matrix/libs/README.md).
 
 ```bash
-./gradlew :app:assembleDebug
+git clone https://github.com/kavastore/nothing-dot.git
+cd nothing-dot
+# place AAR in matrix/libs/
+./gradlew :app:assembleDebug   # or assembleRelease
 ./gradlew test
 ```
 
-Or open the folder in Android Studio — Gradle sync runs automatically, then launch the `app` configuration.
+**Stack:** Kotlin 2.0.21 · Jetpack Compose · Room · DataStore · Shizuku · libadb-android · GlyphMatrix SDK 2.0 · AGP 8.13.2 · Gradle 8.13.
 
-**Emulator / any Android (API 33+):** intro → home → DRAW → draw, frames, save. Matrix status shows `NONE` (expected without hardware).
+### Architecture
 
-**Nothing Phone (4a) Pro / (3):** home screen `LIVE DEMO`, status `MATRIX OK`; editor LIVE mode; AOD toy, image → matrix, Essential Key.
+<a id="architecture-en"></a>
+
+Same module layout as above — see the [Russian architecture section](#архитектура) for the diagram and module table.
