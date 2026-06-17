@@ -133,7 +133,7 @@ fun KeyStatusScreen(
         SectionLabel("ЖЕСТЫ")
         Spacer(Modifier.height(8.dp))
         gestures.forEach { gesture ->
-            val actionTitle = state.config.bindings[gesture]?.let { ActionRegistry.byId(it)?.title } ?: "—"
+            val actionTitle = state.config.bindings[gesture]?.let { ActionRegistry.displayTitle(context, it) } ?: "—"
             GestureRow(gesture.label(), actionTitle) { onPickAction(gesture) }
             Spacer(Modifier.height(10.dp))
         }

@@ -1,5 +1,6 @@
 package tech.dotlab.dot.feature.key.action
 
+import android.content.Context
 import tech.dotlab.dot.core.action.KeyAction
 
 /**
@@ -16,5 +17,17 @@ object ActionRegistry {
         ShowGlyphArtAction(),
     )
 
-    fun byId(id: String): KeyAction? = all.firstOrNull { it.id == id }
+    fun byId(id: String): KeyAction? =
+        OpenAppAction.packageOf(id)?.let(::OpenAppAction) ?: all.firstOrNull { it.id == id }
+
+    /** Human-readable title for a binding, resolving the app label for `open_app:` ids. */
+    fun displayTitle(context: Context, id: String): String? {
+        OpenAppAction.packageOf(id)?.let { pkg ->
+            return runCatching {
+                val pm = context.packageManager
+                pm.getApplicationLabel(pm.getApplicationInfo(pkg, 0)).toString()
+            }.getOrDefault(pkg)
+        }
+        return byId(id)?.title
+    }
 }

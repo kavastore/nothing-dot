@@ -10,7 +10,7 @@
 
 | | |
 | --- | --- |
-| **Последний APK / Latest APK** | **[v0.1.0 — скачать · download](https://github.com/kavastore/nothing-dot/releases/download/v0.1.0/dot-0.1.0.apk)** (~34 MB) |
+| **Последний APK / Latest APK** | **[v0.2.0 — скачать · download](https://github.com/kavastore/nothing-dot/releases/download/v0.2.0/dot-0.2.0.apk)** (~34 MB) |
 | Все версии / All releases | [github.com/kavastore/nothing-dot/releases](https://github.com/kavastore/nothing-dot/releases) |
 | Исходники / Source | `git clone https://github.com/kavastore/nothing-dot.git` |
 
@@ -35,7 +35,7 @@
 
 ### Быстрый старт
 
-1. Скачайте **[dot-0.1.0.apk](https://github.com/kavastore/nothing-dot/releases/download/v0.1.0/dot-0.1.0.apk)**.
+1. Скачайте **[dot-0.2.0.apk](https://github.com/kavastore/nothing-dot/releases/download/v0.2.0/dot-0.2.0.apk)**.
 2. На телефоне разрешите установку из неизвестных источников (для браузера или «Файлов»).
 3. Откройте APK и установите.
 4. При первом запуске — короткий онбординг, затем главный экран с плитками **PLAY / DRAW / KEY / IMG**.
@@ -49,7 +49,7 @@
 | **DRAW** — Pixel Editor | Перо, ластик, заливка, пипетка; яркость 0–255; трансформы; кадры анимации; LIVE на матрице; виджет быстрого рисунка |
 | **AOD Glyph Toy** | Рисунок или анимация в Always-on Display |
 | **IMG** — Картинка → матрица | Импорт фото, downscale + дизеринг Флойда-Стейнберга; AOD или показ по Essential Key |
-| **KEY** — Essential Key | Двойной/тройной/долгий тап → фонарик, камера, скриншот, беззвучный режим; освобождение кнопки через Shizuku / беспроводной ADB / ADB с ПК |
+| **KEY** — Essential Key | Двойной/тройной/долгий тап → фонарик, камера, скриншот, беззвучный режим, **открыть любое приложение** (вкл. Google Wallet); освобождение кнопки через Shizuku / беспроводной ADB / ADB с ПК |
 | **PLAY** — Arkanoid | Игра на матрице Phone (3): наклон — платформа, Glyph-кнопка — шар и выстрел |
 
 ### Поддерживаемые устройства
@@ -128,7 +128,7 @@ graph TD
 
 ### Quick start
 
-1. Download **[dot-0.1.0.apk](https://github.com/kavastore/nothing-dot/releases/download/v0.1.0/dot-0.1.0.apk)**.
+1. Download **[dot-0.2.0.apk](https://github.com/kavastore/nothing-dot/releases/download/v0.2.0/dot-0.2.0.apk)**.
 2. Allow installs from unknown sources on your phone.
 3. Open the APK and install.
 4. First launch shows a short onboarding, then the home screen with **PLAY / DRAW / KEY / IMG** tiles.
@@ -142,7 +142,7 @@ graph TD
 | **DRAW** — Pixel Editor | Pen, eraser, fill, eyedropper; brightness 0–255; transforms; animation frames; LIVE matrix preview; quick-draw widget |
 | **AOD Glyph Toy** | Art or animation in Always-on Display |
 | **IMG** — Image → matrix | Photo import, downscale + Floyd–Steinberg dithering; AOD or Essential Key trigger |
-| **KEY** — Essential Key | Double/triple/long tap → torch, camera, screenshot, silent mode; full unlock via Shizuku / wireless ADB / desktop ADB |
+| **KEY** — Essential Key | Double/triple/long tap → torch, camera, screenshot, silent mode, **open any app** (incl. Google Wallet); full unlock via Shizuku / wireless ADB / desktop ADB |
 | **PLAY** — Arkanoid | Matrix game on Phone (3): tilt for paddle, Glyph Button for ball and fire |
 
 ### Supported devices
