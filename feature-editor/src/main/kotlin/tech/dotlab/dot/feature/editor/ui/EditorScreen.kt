@@ -25,6 +25,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,11 +35,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import kotlinx.coroutines.delay
 import tech.dotlab.dot.designsystem.DotColors
 import tech.dotlab.dot.designsystem.DotMatrixCanvas
 import tech.dotlab.dot.designsystem.DotMatrixPreview
@@ -51,11 +56,20 @@ import tech.dotlab.dot.feature.editor.domain.EditorTool
 fun EditorScreen(
     artId: Long?,
     onBack: () -> Unit,
+    onImport: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: EditorViewModel = viewModel(factory = EditorViewModel.factory(LocalContext.current)),
 ) {
     val state by viewModel.state.collectAsState()
     androidx.compose.runtime.LaunchedEffect(artId) { viewModel.loadOrNew(artId) }
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner, artId) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) viewModel.loadOrNew(artId)
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -65,6 +79,7 @@ fun EditorScreen(
                 title = { SectionLabel("(02) DRAW") },
                 navigationIcon = { TextButton(onClick = onBack) { Text("‹", fontSize = 22.sp) } },
                 actions = {
+                    TextButton(onClick = { viewModel.save(onImport) }) { Text("IMG+") }
                     if (state.matrixAvailable || state.livePreview) {
                         TextButton(onClick = viewModel::toggleLivePreview) {
                             Text(if (state.livePreview) "LIVE ■" else "LIVE")
@@ -233,6 +248,13 @@ private fun BigToolButton(
 
 @Composable
 private fun FrameStrip(viewModel: EditorViewModel, state: EditorUiState) {
+    var playing by remember { mutableStateOf(false) }
+    androidx.compose.runtime.LaunchedEffect(playing, state.frameIndex, state.document.frames.size) {
+        if (playing && state.document.frames.size > 1) {
+            delay(state.document.frames[state.frameIndex].durationMs.toLong())
+            viewModel.selectFrame((state.frameIndex + 1) % state.document.frames.size)
+        }
+    }
     Column(Modifier.fillMaxWidth().padding(top = 8.dp)) {
         Row(
             Modifier.fillMaxWidth(),
@@ -243,6 +265,7 @@ private fun FrameStrip(viewModel: EditorViewModel, state: EditorUiState) {
             SmallButton("+", viewModel::addFrame)
             SmallButton("DUP", viewModel::duplicateFrame)
             SmallButton("DEL", viewModel::deleteFrame)
+            SmallButton(if (playing) "■" else "▶") { playing = !playing }
         }
         LazyRow(
             Modifier.fillMaxWidth().padding(top = 6.dp),
@@ -266,8 +289,27 @@ private fun FrameStrip(viewModel: EditorViewModel, state: EditorUiState) {
                 }
             }
         }
+        val duration = state.document.frames[state.frameIndex].durationMs
+        Column(Modifier.fillMaxWidth().padding(top = 6.dp)) {
+            Text(
+                text = "КАДР ${state.frameIndex + 1}/${state.document.frames.size}  ·  ${duration} мс",
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontFamily = FontFamily.Monospace,
+                fontSize = 10.sp,
+            )
+            Slider(
+                value = duration.toFloat(),
+                onValueChange = { viewModel.setFrameDuration(it.toInt()) },
+                valueRange = 60f..2_000f,
+                colors = SliderDefaults.colors(
+                    thumbColor = DotColors.Red,
+                    activeTrackColor = DotColors.Red,
+                ),
+            )
+        }
         Text(
-            text = "В режиме Always-on кадр меняется раз в минуту.",
+            text = "PLAY проигрывает анимацию и отправляет кадры на матрицу при включённом LIVE. " +
+                "В Always-on Nothing OS вызывает обновление примерно раз в минуту.",
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontFamily = FontFamily.Monospace,
             fontSize = 10.sp,

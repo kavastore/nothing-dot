@@ -46,9 +46,9 @@
 
 | Модуль | Описание |
 | --- | --- |
-| **DRAW** — Pixel Editor | Перо, ластик, заливка, пипетка; яркость 0–255; трансформы; кадры анимации; LIVE на матрице; виджет быстрого рисунка |
+| **DRAW** — Pixel Editor | Перо, ластик, заливка, пипетка; яркость 0–255; импорт картинки/коллажа в новый кадр; тайминг и PLAY анимации; LIVE на матрице; виджет быстрого рисунка |
 | **AOD Glyph Toy** | Рисунок или анимация в Always-on Display |
-| **IMG** — Картинка → матрица | Импорт фото, downscale + дизеринг Флойда-Стейнберга; AOD или показ по Essential Key |
+| **IMG** — Картинка → матрица | Слои и коллаж, drag/pinch и точные X/Y, grayscale или строгое 0/1 с порогом/дизерингом; экспорт PNG для Essential Notifications, DRAW, AOD или Essential Key |
 | **KEY** — Essential Key | Двойной/тройной/долгий тап → фонарик, камера, скриншот, беззвучный режим, **открыть любое приложение** (вкл. Google Wallet); освобождение кнопки через Shizuku / беспроводной ADB / ADB с ПК |
 | **PLAY** — Arkanoid | Игра на матрице Phone (3): наклон — платформа, Glyph-кнопка — шар и выстрел |
 
@@ -139,9 +139,9 @@ graph TD
 
 | Module | Description |
 | --- | --- |
-| **DRAW** — Pixel Editor | Pen, eraser, fill, eyedropper; brightness 0–255; transforms; animation frames; LIVE matrix preview; quick-draw widget |
+| **DRAW** — Pixel Editor | Pen, eraser, fill, eyedropper; brightness 0–255; image/collage import into a new frame; animation timing and playback; LIVE matrix preview; quick-draw widget |
 | **AOD Glyph Toy** | Art or animation in Always-on Display |
-| **IMG** — Image → matrix | Photo import, downscale + Floyd–Steinberg dithering; AOD or Essential Key trigger |
+| **IMG** — Image → matrix | Layers and collage, drag/pinch plus precise X/Y, grayscale or strict 1-bit threshold/dithering; PNG export for Essential Notifications, DRAW, AOD or Essential Key |
 | **KEY** — Essential Key | Double/triple/long tap → torch, camera, screenshot, silent mode, **open any app** (incl. Google Wallet); full unlock via Shizuku / wireless ADB / desktop ADB |
 | **PLAY** — Arkanoid | Matrix game on Phone (3): tilt for paddle, Glyph Button for ball and fire |
 

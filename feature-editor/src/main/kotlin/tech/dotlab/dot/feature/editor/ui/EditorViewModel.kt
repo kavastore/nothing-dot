@@ -62,7 +62,16 @@ class EditorViewModel(
         if (artId == null || artId <= 0) return
         viewModelScope.launch {
             repository.load(artId)?.let { doc ->
-                _state.update { it.copy(document = doc, frameIndex = 0) }
+                _state.update { current ->
+                    val importedFrameWasAdded = current.document.id == doc.id &&
+                        doc.frames.size > current.document.frames.size
+                    current.copy(
+                        document = doc,
+                        frameIndex = if (importedFrameWasAdded) doc.frames.lastIndex else
+                            current.frameIndex.coerceAtMost(doc.frames.lastIndex),
+                    )
+                }
+                if (_state.value.livePreview) renderer.showFrame(_state.value.currentFrame)
             }
         }
     }
@@ -91,8 +100,17 @@ class EditorViewModel(
 
     fun setFrame(frame: LogicalFrame) = mutateFrame { frame }
 
-    fun selectFrame(index: Int) = _state.update {
-        if (index in it.document.frames.indices) it.copy(frameIndex = index) else it
+    fun selectFrame(index: Int) {
+        _state.update {
+            if (index in it.document.frames.indices) it.copy(frameIndex = index) else it
+        }
+        if (_state.value.livePreview) renderer.showFrame(_state.value.currentFrame)
+    }
+
+    fun setFrameDuration(durationMs: Int) = _state.update { state ->
+        val frames = state.document.frames.toMutableList()
+        frames[state.frameIndex] = frames[state.frameIndex].copy(durationMs = durationMs.coerceIn(60, 5_000))
+        state.copy(document = state.document.copy(frames = frames))
     }
 
     fun addFrame() = _state.update { s ->
