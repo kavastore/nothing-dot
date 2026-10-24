@@ -32,6 +32,7 @@ private object Routes {
     const val GALLERY = "gallery"
     const val EDITOR = "editor"
     const val IMAGE = "image"
+    const val IMAGE_EDITOR = "image/editor"
     const val PLAY = "play"
     const val SETTINGS = "settings"
     const val KEY = "key"
@@ -86,7 +87,22 @@ fun DotApp() {
         }
 
         composable(Routes.IMAGE) {
-            ImagePickerScreen(onBack = { navController.popBackStack() })
+            ImagePickerScreen(
+                onBack = { navController.popBackStack() },
+                onOpenEditor = { id -> navController.navigate("${Routes.EDITOR}/$id") },
+            )
+        }
+
+        composable(
+            route = "${Routes.IMAGE_EDITOR}/{artId}",
+            arguments = listOf(navArgument("artId") { type = NavType.LongType }),
+        ) { entry ->
+            val artId = entry.arguments?.getLong("artId") ?: return@composable
+            ImagePickerScreen(
+                targetArtId = artId,
+                onBack = { navController.popBackStack() },
+                onOpenEditor = { navController.popBackStack() },
+            )
         }
 
         composable(Routes.SETTINGS) {
@@ -124,6 +140,7 @@ fun DotApp() {
             EditorScreen(
                 artId = artId.takeIf { it > 0 },
                 onBack = { navController.popBackStack() },
+                onImport = { id -> navController.navigate("${Routes.IMAGE_EDITOR}/$id") },
             )
         }
 
